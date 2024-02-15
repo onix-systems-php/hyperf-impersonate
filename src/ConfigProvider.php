@@ -29,8 +29,8 @@ class ConfigProvider
             ],
             'publish' => [
                 [
-                    'id' => 'config_auth',
-                    'description' => 'The auth config for onix-systems-php/hyperf-impersonate.',
+                    'id' => 'config_impersonate',
+                    'description' => 'The impersonate config for onix-systems-php/hyperf-impersonate.',
                     'source' => __DIR__ . '/../publish/config/impersonate.php',
                     'destination' => BASE_PATH . '/config/autoload/impersonate.php',
                 ],

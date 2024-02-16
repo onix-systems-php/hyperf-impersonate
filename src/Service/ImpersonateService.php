@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace OnixSystemsPHP\HyperfImpersonate\Service;
 
 use Hyperf\Contract\ConfigInterface;
-use Hyperf\HttpMessage\Exception\NotFoundHttpException;
 use OnixSystemsPHP\HyperfAuth\AuthManager;
 use OnixSystemsPHP\HyperfAuth\DTO\AuthTokensDTO;
+use OnixSystemsPHP\HyperfCore\Exception\BusinessException;
 use OnixSystemsPHP\HyperfCore\Service\Service;
 use OnixSystemsPHP\HyperfImpersonate\Contract\Impersonatable;
 use OnixSystemsPHP\HyperfImpersonate\DTO\ImpersonateInfoDTO;
@@ -61,7 +61,7 @@ class ImpersonateService
     public function take(?Impersonatable $from, Impersonatable $to): ImpersonateTakeDTO
     {
         if ($from === null) {
-            throw new NotFoundHttpException(__('impersonate.impersonator_not_found'));
+            throw new BusinessException(404, __('impersonate.impersonator_not_found'));
         }
 
         if (! $this->isImpersonating()) {

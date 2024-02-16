@@ -9,16 +9,20 @@ declare(strict_types=1);
 
 namespace OnixSystemsPHP\HyperfImpersonate\Exception;
 
-class NotImpersonatingException extends \RuntimeException
+use OnixSystemsPHP\HyperfCore\Exception\BusinessException;
+
+use function Hyperf\Translation\__;
+
+class NotImpersonatingException extends BusinessException
 {
     public function __construct(
-        string $message = 'This user is not impersonating.',
         int $code = 403,
-        \Throwable $previous = null,
+        string $message = null,
+        ?\Throwable $previous = null,
     ) {
         parent::__construct(
-            $message,
             $code,
+            $message ?? __('impersonate.user_is_not_impersonating'),
             $previous,
         );
     }

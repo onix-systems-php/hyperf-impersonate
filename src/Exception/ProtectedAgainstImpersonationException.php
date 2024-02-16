@@ -9,16 +9,20 @@ declare(strict_types=1);
 
 namespace OnixSystemsPHP\HyperfImpersonate\Exception;
 
-class ProtectedAgainstImpersonationException extends \RuntimeException
+use OnixSystemsPHP\HyperfCore\Exception\BusinessException;
+
+use function Hyperf\Translation\__;
+
+class ProtectedAgainstImpersonationException extends BusinessException
 {
     public function __construct(
-        string $message = 'These data can\'t be accessed by an impersonator.',
         int $code = 403,
-        \Throwable $previous = null,
+        string $message = null,
+        ?\Throwable $previous = null,
     ) {
         parent::__construct(
-            $message,
             $code,
+            $message ?? __('impersonate.data_cant_be_accessed'),
             $previous,
         );
     }

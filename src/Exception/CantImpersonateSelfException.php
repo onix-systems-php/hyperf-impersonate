@@ -9,16 +9,20 @@ declare(strict_types=1);
 
 namespace OnixSystemsPHP\HyperfImpersonate\Exception;
 
-class CantImpersonateSelfException extends \RuntimeException
+use OnixSystemsPHP\HyperfCore\Exception\BusinessException;
+
+use function Hyperf\Translation\__;
+
+class CantImpersonateSelfException extends BusinessException
 {
     public function __construct(
-        string $message = 'It is not possible to impersonate self.',
         int $code = 403,
-        \Throwable $previous = null,
+        string $message = null,
+        ?\Throwable $previous = null,
     ) {
         parent::__construct(
-            $message,
             $code,
+            $message ?? __('impersonate.not_possible_to_impersonate_self'),
             $previous,
         );
     }

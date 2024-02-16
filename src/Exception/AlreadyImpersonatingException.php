@@ -9,16 +9,20 @@ declare(strict_types=1);
 
 namespace OnixSystemsPHP\HyperfImpersonate\Exception;
 
-class AlreadyImpersonatingException extends \RuntimeException
+use OnixSystemsPHP\HyperfCore\Exception\BusinessException;
+
+use function Hyperf\Translation\__;
+
+class AlreadyImpersonatingException extends BusinessException
 {
     public function __construct(
-        string $message = 'This user is already impersonating someone.',
         int $code = 403,
-        \Throwable $previous = null,
+        string $message = null,
+        ?\Throwable $previous = null,
     ) {
         parent::__construct(
-            $message,
             $code,
+            $message ?? __('impersonate.already_impersonating'),
             $previous,
         );
     }

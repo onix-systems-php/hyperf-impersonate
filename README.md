@@ -37,10 +37,17 @@ Install:
 composer require onix-systems-php/hyperf-impersonate
 ```
 
-Publish config and database migrations:
+Publish config:
 
 ```shell script
-php bin/hyperf.php vendor:publish onix-systems-php/hyperf-impersonate
+php bin/hyperf.php vendor:publish onix-systems-php/hyperf-impersonate -i config
+```
+
+Publish translations:
+
+```shell script
+php bin/hyperf.php vendor:publish onix-systems-php/hyperf-impersonate -i en_us_translation
+php bin/hyperf.php vendor:publish onix-systems-php/hyperf-impersonate -i ua_uk_translation
 ```
 
 Import impersonate routes:

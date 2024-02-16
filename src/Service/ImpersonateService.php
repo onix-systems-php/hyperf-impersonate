@@ -27,6 +27,8 @@ use OnixSystemsPHP\HyperfImpersonate\Exception\CantImpersonateSelfException;
 use OnixSystemsPHP\HyperfImpersonate\Exception\NotImpersonatingException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
+use function Hyperf\Translation\__;
+
 #[Service]
 class ImpersonateService
 {
@@ -38,10 +40,7 @@ class ImpersonateService
 
     public function findUserById(int $id): Impersonatable
     {
-        $provider = $this->authManager->defaultProvider();
-        $model = $this->config->get("auth.providers.{$provider}.model");
-
-        return call_user_func([$model, 'findOrFail'], $id);
+        return $this->authManager->provider()->retrieveByCredentials($id);
     }
 
     public function isImpersonating(): bool
@@ -62,7 +61,7 @@ class ImpersonateService
     public function take(?Impersonatable $from, Impersonatable $to): ImpersonateTakeDTO
     {
         if ($from === null) {
-            throw new NotFoundHttpException('Impersonator not found!');
+            throw new NotFoundHttpException(__('impersonate.impersonator_not_found'));
         }
 
         if (! $this->isImpersonating()) {
